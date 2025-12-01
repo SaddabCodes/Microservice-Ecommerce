@@ -17,7 +17,7 @@ public class Product {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private String productId;
+    private Long productId;
     private String name;
     private String description;
     private Double price;
@@ -30,12 +30,15 @@ public class Product {
     private Category category;
 
     @PrePersist
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+        inStock = stockQuantity != null && stockQuantity > 0;
+    }
+
     @PreUpdate
-    public void updateStockStatus() {
-        this.inStock = this.stockQuantity != null && this.stockQuantity > 0;
-        if (createdAt == null) {
-            createdAt = LocalDateTime.now();
-            updatedAt = LocalDateTime.now();
-        }
+    public void onUpdate() {
+        updatedAt = LocalDateTime.now();
+        inStock = stockQuantity != null && stockQuantity > 0;
     }
 }

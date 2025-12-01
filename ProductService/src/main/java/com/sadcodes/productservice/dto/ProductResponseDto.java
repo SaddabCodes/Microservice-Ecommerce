@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class ProductResponseDto {
-    private String productId;
+    private Long productId;
     private String name;
     private String description;
     private Double price;
     private Integer stockQuantity;
     private Boolean inStock;
-    private Long categoryName;
+    private String categoryName;
 }
